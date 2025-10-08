@@ -12,6 +12,53 @@
     })
   );
 
+  let audioContext = null;
+
+  function ensureAudioContext() {
+    const AudioContextConstructor =
+      window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextConstructor) {
+      return null;
+    }
+
+    if (!audioContext) {
+      audioContext = new AudioContextConstructor();
+    }
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+
+    return audioContext;
+  }
+
+  function playCompletionSound() {
+    const ctx = ensureAudioContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(880, now);
+
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.2, now + 0.02);
+    gain.gain.linearRampToValueAtTime(0.0001, now + 0.4);
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.45);
+
+    oscillator.addEventListener('ended', () => {
+      oscillator.disconnect();
+      gain.disconnect();
+    });
+  }
+
   function formatTime(totalSeconds) {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -47,6 +94,8 @@
     timer.remaining = timer.duration;
     updateDisplay(timer);
 
+    ensureAudioContext();
+
     timer.intervalId = window.setInterval(() => {
       timer.remaining -= 1;
       if (timer.remaining <= 0) {
@@ -62,6 +111,7 @@
   function finishTimer(timer) {
     clearTimer(timer);
     timer.element.classList.add('expired');
+    playCompletionSound();
     timer.flashTimeout = window.setTimeout(() => {
       removeHighlight(timer);
       timer.flashTimeout = null;
@@ -75,5 +125,16 @@
     }
   });
 
-  timers.forEach(updateDisplay);
+  timers.forEach((timer, index) => {
+    updateDisplay(timer);
+    timer.element.addEventListener('click', () => {
+      startTimer(index);
+    });
+    timer.element.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        startTimer(index);
+      }
+    });
+  });
 })();
