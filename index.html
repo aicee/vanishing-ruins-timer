@@ -10,20 +10,23 @@
     <main class="app">
       <h1 class="title">Vanishing Ruins Timer</h1>
       <section class="timers">
-        <article class="timer" data-index="0">
+        <article class="timer" data-index="0" role="button" tabindex="0">
           <h2 class="timer-label">Timer 1</h2>
           <div class="timer-display" aria-live="polite">01:00</div>
         </article>
-        <article class="timer" data-index="1">
+        <article class="timer" data-index="1" role="button" tabindex="0">
           <h2 class="timer-label">Timer 2</h2>
           <div class="timer-display" aria-live="polite">01:00</div>
         </article>
-        <article class="timer" data-index="2">
+        <article class="timer" data-index="2" role="button" tabindex="0">
           <h2 class="timer-label">Timer 3</h2>
           <div class="timer-display" aria-live="polite">01:00</div>
         </article>
       </section>
-      <p class="instructions">Press 1, 2, or 3 to start or restart the matching timer.</p>
+      <p class="instructions">
+        Press 1, 2, or 3 to start or restart the matching timer, or tap the
+        blocks themselves.
+      </p>
     </main>
     <script src="script.js"></script>
   </body>

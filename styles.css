@@ -49,6 +49,7 @@ body {
   gap: 0.75rem;
   transition: background 0.2s ease, transform 0.2s ease;
   border: 2px solid transparent;
+  cursor: pointer;
 }
 
 .timer-label {
@@ -71,6 +72,11 @@ body {
 
 .timer.expired .timer-display {
   animation: flash 0.5s ease-in-out 2;
+}
+
+.timer:focus-visible {
+  outline: 3px solid #ff5a5a;
+  outline-offset: 4px;
 }
 
 .instructions {
