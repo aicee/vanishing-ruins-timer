@@ -93,7 +93,7 @@ body {
 .credits {
   margin: 0;
   font-size: 0.9rem;
-  opacity: 0.6;
+  color: #f5f5f5;
 }
 
 .credit-name {
