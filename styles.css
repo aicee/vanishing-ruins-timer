@@ -89,6 +89,12 @@ body {
   opacity: 0.75;
 }
 
+.credits {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
 @keyframes timer-activate {
   0% {
     transform: scale(1);
