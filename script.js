@@ -9,6 +9,7 @@
       remaining: DURATION_SECONDS,
       intervalId: null,
       flashTimeout: null,
+      startEffectTimeout: null,
     })
   );
 
@@ -78,6 +79,11 @@
       clearTimeout(timer.flashTimeout);
       timer.flashTimeout = null;
     }
+    if (timer.startEffectTimeout !== null) {
+      clearTimeout(timer.startEffectTimeout);
+      timer.startEffectTimeout = null;
+    }
+    timer.element.classList.remove('starting');
   }
 
   function removeHighlight(timer) {
@@ -95,6 +101,7 @@
     updateDisplay(timer);
 
     ensureAudioContext();
+    triggerStartEffect(timer);
 
     timer.intervalId = window.setInterval(() => {
       timer.remaining -= 1;
@@ -116,6 +123,22 @@
       removeHighlight(timer);
       timer.flashTimeout = null;
     }, 1000);
+  }
+
+  function triggerStartEffect(timer) {
+    timer.element.classList.remove('starting');
+    if (timer.startEffectTimeout !== null) {
+      clearTimeout(timer.startEffectTimeout);
+      timer.startEffectTimeout = null;
+    }
+
+    void timer.element.offsetWidth;
+
+    timer.element.classList.add('starting');
+    timer.startEffectTimeout = window.setTimeout(() => {
+      timer.element.classList.remove('starting');
+      timer.startEffectTimeout = null;
+    }, 380);
   }
 
   document.addEventListener('keydown', (event) => {
