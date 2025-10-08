@@ -26,7 +26,8 @@ body {
 }
 
 .title {
-  font-size: clamp(2rem, 3vw + 1rem, 3.5rem);
+  font-size: clamp(1.5rem, 2vw + 0.8rem, 2.5rem);
+  font-weight: 400;
   margin: 0;
   letter-spacing: 0.08em;
 }
