@@ -177,6 +177,17 @@ body {
   transform: translateX(-50%) scaleY(1);
 }
 
+.support {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.support .bmc-btn {
+  transform: scale(0.63);
+  transform-origin: center;
+}
+
 @keyframes timer-activate {
   0% {
     transform: scale(1);
