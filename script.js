@@ -84,6 +84,7 @@
       timer.startEffectTimeout = null;
     }
     timer.element.classList.remove('starting');
+    timer.element.classList.remove('running');
   }
 
   function removeHighlight(timer) {
@@ -102,6 +103,7 @@
 
     ensureAudioContext();
     triggerStartEffect(timer);
+    timer.element.classList.add('running');
 
     timer.intervalId = window.setInterval(() => {
       timer.remaining -= 1;
@@ -121,6 +123,8 @@
     playCompletionSound();
     timer.flashTimeout = window.setTimeout(() => {
       removeHighlight(timer);
+      timer.remaining = timer.duration;
+      updateDisplay(timer);
       timer.flashTimeout = null;
     }, 1000);
   }
