@@ -128,7 +128,7 @@ body {
 .credit-name {
   position: relative;
   color: #b3b7c6;
-  cursor: help;
+  cursor: default;
   transition: color 0.2s ease;
 }
 
@@ -137,51 +137,8 @@ body {
   color: #d7dbe9;
 }
 
-.credit-name::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 140%;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: #191b22;
-  color: #f5f5f5;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  white-space: pre-line;
-  width: min(260px, 70vw);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.25);
-}
-
-.credit-name::before {
-  content: '';
-  position: absolute;
-  bottom: 115%;
-  left: 50%;
-  transform: translateX(-50%) scaleY(0);
-  border-width: 6px;
-  border-style: solid;
-  border-color: #191b22 transparent transparent transparent;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.credit-name:hover::after,
-.credit-name:focus-visible::after,
-.credit-name:hover::before,
-.credit-name:focus-visible::before {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.credit-name:hover::before,
-.credit-name:focus-visible::before {
-  transform: translateX(-50%) scaleY(1);
-}
-
 .support {
+
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
